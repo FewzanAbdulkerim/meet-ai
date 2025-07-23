@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from 'geist/font/mono'
+import { TRPCReactProvider } from "@/trpc/client";
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
+import {NuqsAdapter} from 'nuqs/adapters/next'
 
 
 
@@ -16,12 +19,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${GeistSans.variable} ${GeistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <NuqsAdapter>
+      <TRPCReactProvider>
+      <html lang="en">
+        <body
+          className={`${GeistSans.variable} ${GeistMono.variable} antialiased`}
+        >
+          <Toaster/>
+          {children}
+        </body>
+      </html>
+      </TRPCReactProvider>
+    </NuqsAdapter>
   );
 }
